@@ -1,19 +1,28 @@
-import json
+import json, ndjson
 from google.cloud import bigquery
+import os
+from google.cloud import storage
 
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:/Users/ytkna/Downloads/devoteam-techchallenge-9cbd03c5683e.json'
 
 client = bigquery.Client()
 
-json_file = 'C:/Users/ytkna/Desktop/challenge_data.json' 
+storage_client = storage.Client()
+bucket = storage_client.get_bucket('bckt_challenge')
+blob = bucket.get_blob('challenge_data.json')
 
-table_id = 'devoteam-techchallenge.test.load_from_uri_test_4'
+json_list = ndjson.loads(blob.download_as_string())
 
-json_list=[]
+#print(type(data))
 
-f = open(json_file)
+table_id = 'devoteam-techchallenge.test.load_from_uri_test_6'
 
-for line in f:
-    json_list.append(json.loads(line))
+#json_list=[]
+
+#f = open(data)
+
+#for line in f:
+#    json_list.append(json.loads(line))
 
 print('Data List: \n', json_list)
 
@@ -97,6 +106,21 @@ def create_table_bq(table_id, schema):
 
     print('Created {}.{}.{}'.format(table.project, table.dataset_id, table.table_id))
 
+def load_data(uri, table_id):
+    job_config = bigquery.LoadJobConfig(
+        write_disposition = bigquery.WriteDisposition.WRITE_TRUNCATE,
+        source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
+    )
+
+    load_job = client.load_table_from_uri(
+        uri, table_id, job_config=job_config
+    )
+
+    load_job.result()
+
+    destination_table = client.get_table(table_id)
+    print('Loaded {} rows'.format(destination_table.num_rows))
+
 dict_schema = data_dict_schema(json_list)
 
 bq_schema = data_types(dict_schema)
@@ -104,5 +128,9 @@ bq_schema = data_types(dict_schema)
 print('BigQuery Schema: \n', bq_schema)
 
 create_table_bq(table_id, bq_schema)
+
+uri = 'gs://bckt_challenge/challenge_data.json'
+
+load_data(uri, table_id)
 
 
