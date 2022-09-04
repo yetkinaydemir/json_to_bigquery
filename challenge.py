@@ -59,9 +59,7 @@ def data_dict_schema(json_list):
     return data_dict_schema
 
 def data_types(data_dict):
-    types_dict = {}
     bq_schema = []
-    #fields = []
 
     def data_type(data_dict):
         for k, v in data_dict.items():
@@ -71,28 +69,15 @@ def data_types(data_dict):
                 value_type = 'string'
         return value_type
     
-    def record_or_not(flag, k, value_type):
-        if flag == 1:
-            fields.append(bigquery.SchemaField(k, value_type))
-        elif flag == 0:
-            bq_schema.append(bigquery.SchemaField(k, value_type))
-        return bq_schema, fields
-    
     def extract_keys(data_dict, value_type):
         fields = []
     
         for k, v in data_dict.items():
             if not isinstance(v, dict):
-                flag = 0
-                #record_or_not(flag, k, value_type)
                 bq_schema.append(bigquery.SchemaField(k, value_type))
+
             elif isinstance(v, dict):
-                #types_dict.update({k: 'record'})
-                flag = 1
-                #odict = OrderedDict(v)
-                #fields.append(bigquery.SchemaField(v.keys(), data_type(v)))
                 for x, y in v.items():
-                    #record_or_not(flag, x, value_type=data_type(v))
                     fields.append(bigquery.SchemaField(x, data_type(v)))
                     bq_schema.append(bigquery.SchemaField(k, 'record', mode='repeated', fields=fields))
                     fields=[]
@@ -102,18 +87,7 @@ def data_types(data_dict):
     value_type = data_type(data_dict)
     
     bq_schema = extract_keys(data_dict, value_type)
-    print('Fields: \n', fields)
-    return bq_schema
-
-def create_schema(types_dict):
-    
-    bq_schema = []
-
-    for k, v in types_dict.items():
-        
-        bq_schema.append(bigquery.SchemaField(k, v))
-    
-    #print(bq_schema)
+    #print('Fields: \n', fields)
     return bq_schema
 
 def create_table_bq(table_id, schema):
