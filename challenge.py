@@ -13,16 +13,7 @@ blob = bucket.get_blob('challenge_data.json')
 
 json_list = ndjson.loads(blob.download_as_string())
 
-#print(type(data))
-
 table_id = 'devoteam-techchallenge.test.load_from_uri_test_6'
-
-#json_list=[]
-
-#f = open(data)
-
-#for line in f:
-#    json_list.append(json.loads(line))
 
 print('Data List: \n', json_list)
 
