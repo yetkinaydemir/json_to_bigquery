@@ -100,6 +100,7 @@ def create_table_bq(table_id, schema):
 def load_data(uri, table_id):
     job_config = bigquery.LoadJobConfig(
         write_disposition = bigquery.WriteDisposition.WRITE_TRUNCATE,
+        schema_update_options = bigquery.SchemaUpdateOption.ALLOW_FIELD_ADDITION,
         source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
     )
 
