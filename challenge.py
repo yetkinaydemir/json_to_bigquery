@@ -2,7 +2,6 @@ import json, ndjson
 from google.cloud import bigquery
 import os
 from google.cloud import storage
-from google.cloud.exceptions import NotFound
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:/Users/ytkna/Downloads/devoteam-techchallenge-9cbd03c5683e.json'
 
