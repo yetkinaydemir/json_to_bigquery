@@ -26,3 +26,5 @@ if __name__ == '__main__':
 
     create_or_update(full_table_name, bq_schema, source_field_paths, project_id, dataset_id, table_id, logger)
 
+    load_data(uri, full_table_name, logger)
+
