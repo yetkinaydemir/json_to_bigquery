@@ -1,6 +1,8 @@
 from google.cloud import bigquery
 
-def load_data(uri, table_id, bq_client):
+bq_client = bigquery.Client()
+
+def load_data(uri, table_id):
 # Loads the JSON data to created or updated BigQuery table.
     job_config = bigquery.LoadJobConfig(
                     write_disposition = bigquery.WriteDisposition.WRITE_APPEND,
