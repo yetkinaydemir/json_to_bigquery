@@ -2,7 +2,7 @@ from google.cloud import bigquery
 
 bq_client = bigquery.Client()
 
-def load_data(uri, table_id):
+def load_data(uri, table_id, logger):
 # Loads the JSON data to created or updated BigQuery table.
     job_config = bigquery.LoadJobConfig(
                     write_disposition = bigquery.WriteDisposition.WRITE_APPEND,
@@ -18,4 +18,4 @@ def load_data(uri, table_id):
 
     load_job.result()
 
-    print('Loaded {} rows'.format(load_job.output_rows))
+    logger.info('Loaded {} rows'.format(load_job.output_rows))
