@@ -47,7 +47,7 @@ def json_extract(obj):
     #print(values)
 
 values, keys, records = json_extract(json_list)
-print('Values :', values, 'Non-records :', keys, 'Records :', records)
+#print('Values :', values, 'Non-records :', keys, 'Records :', records)
 
 def convert_list_to_dict(json_list):
 # Converts the list formatted JSON data to dictionary format. Dictionary is being used to create the schema for BigQuery table.
@@ -63,7 +63,7 @@ def create_bq_schema(data_dict):
     bq_schema = []
 
     def data_type(data_dict):
-    # Detects the data types of dictionary values.
+    # Detects integer and string data types of dictionary values.
         for k, v in data_dict.items():
             if type(v) is int:
                 value_type = 'integer'
