@@ -15,7 +15,7 @@ json_list = ndjson.loads(blob.download_as_string())
 
 project_id = 'devoteam-techchallenge'
 dataset_id = 'test'
-table_name = 'load_from_uri_test_9'
+table_name = 'load_from_uri_4'
 table_id = '{}.{}.{}'.format(project_id, dataset_id, table_name)
 
 print('Data List: \n', json_list)
@@ -49,11 +49,8 @@ def json_extract(obj):
 values, keys, records = json_extract(json_list)
 print('Values :', values, 'Non-records :', keys, 'Records :', records)
 
-#data_dict = {k: v for k, v in zip(keys, values)}
-#print('Data Dict: \n', data_dict)
-
 def convert_list_to_dict(json_list):
-# Converts the list formatted JSON data to dictionary format. Dictionary is being used to create schema for BigQuery table.
+# Converts the list formatted JSON data to dictionary format. Dictionary is being used to create the schema for BigQuery table.
     data_dict = {}
     
     for item in json_list:
