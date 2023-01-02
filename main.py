@@ -1,11 +1,8 @@
 from logger import log_config
-from google.cloud import bigquery
 from read_data import extract_data
 from create_schema_for_bq import create_bq_schema
 from create_or_update_table import create_or_update
 from load_data import load_data
-
-bq_client = bigquery.Client()
 
 bucket_name = 'your-bucket'
 file_name = 'your-file.json'
