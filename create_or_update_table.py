@@ -1,8 +1,9 @@
 from google.cloud import bigquery
+from schema_check import schema_check
 
 bq_client = bigquery.bq_client()
 
-def create_table_bq(table_id, bq_schema):
+def create_table_bq(table_id, bq_schema, source_field_paths):
 # If the table exists in the dataset, updates the schema. 
 # Before updating the schema, it checks both the source and the target schema if there is a new field to be added. This part is for verifying the schemas.
 # If the table does not exist in the dataset, creates the table.

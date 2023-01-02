@@ -156,9 +156,9 @@ def schema_check(source_field_paths):
 def load_data(uri, table_id):
 # Loads the JSON data to created or updated BigQuery table.
     job_config = bigquery.LoadJobConfig(
-        write_disposition = bigquery.WriteDisposition.WRITE_APPEND,
-        schema_update_options = [bigquery.SchemaUpdateOption.ALLOW_FIELD_ADDITION],
-        source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
+                    write_disposition = bigquery.WriteDisposition.WRITE_APPEND,
+                    schema_update_options = [bigquery.SchemaUpdateOption.ALLOW_FIELD_ADDITION],
+                    source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
     )
 
     load_job = client.load_table_from_uri(
