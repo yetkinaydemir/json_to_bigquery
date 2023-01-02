@@ -22,4 +22,4 @@ if __name__ == '__main__':
 
     bq_schema, source_field_paths = create_bq_schema(json_list)
 
-    create_or_update(full_table_name, bq_schema, source_field_paths)
+    create_or_update(full_table_name, bq_schema, source_field_paths, project_id, dataset_id, table_id, logger)
